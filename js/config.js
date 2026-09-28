@@ -10,8 +10,8 @@
 
 window.SUPABASE_CONFIG = {
   // Preencha com a URL do seu projeto Supabase (ex: https://xyzcompany.supabase.co)
-  URL: window.SUPABASE_URL || 'https://sua-url-supabase.supabase.co',
+  URL: window.SUPABASE_URL || 'https://jmwrfvpjepwrodbcqsis.supabase.co',
 
   // Preencha com a chave PÚBLICA anon key do Supabase (safe for browser)
-  ANON_KEY: window.SUPABASE_ANON_KEY || 'sua-chave-anon-publica-aqui'
+ ANON_KEY: window.SUPABASE_ANON_KEY || 'sb_publishable_F0yXm8s1OGCBYlEsNte8DQ_p0JwFsz0'
 };
