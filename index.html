@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexora — Controle de Insumos e Ativos de TI</title>
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#001464",
+            "primary-container": "#10288c",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#8496fc",
+            "on-primary-fixed-variant": "#283d9e",
+            "secondary": "#7740bc",
+            "secondary-container": "#b780ff",
+            "on-secondary-container": "#49008c",
+            "secondary-fixed": "#eedcff",
+            "tertiary": "#47001c",
+            "tertiary-container": "#6e002f",
+            "on-tertiary-container": "#ff6b95",
+            "surface": "#faf8ff",
+            "surface-bright": "#faf8ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f3ff",
+            "surface-container": "#eaedff",
+            "surface-container-high": "#e2e7ff",
+            "surface-container-highest": "#dae2fd",
+            "on-surface": "#131b2e",
+            "on-surface-variant": "#454652",
+            "background": "#faf8ff",
+            "on-background": "#131b2e",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+            "on-error-container": "#93000a",
+            "outline": "#757684",
+            "outline-variant": "#c5c5d4"
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            gutter: "1.25rem",
+            "gutter-desktop": "1.5rem",
+            margin: "1rem",
+            "margin-desktop": "2rem"
+          },
+          fontFamily: {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "label-xs": ["Inter"]
+          },
+          fontSize: {
+            "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.015em", fontWeight: "700" }],
+            "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }],
+            "label-md": ["14px", { lineHeight: "20px", fontWeight: "600" }],
+            "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }],
+            "label-xs": ["11px", { lineHeight: "14px", letterSpacing: "0.05em", fontWeight: "700" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Supabase JS SDK via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col">
+
+  <!-- Toast Container Global -->
+  <div id="toast-container" class="fixed top-20 right-6 z-50 flex flex-col gap-space-sm pointer-events-none transition-all duration-300"></div>
+
+  <!-- HEADER GLOBAL DA APLICAÇÃO -->
+  <header id="app-header" class="fixed top-0 left-0 right-0 z-40 bg-primary shadow-[0_1px_8px_rgba(0,0,0,0.12)] hidden">
+    <div class="h-16 w-full px-margin-desktop flex items-center justify-between">
+      <div class="flex items-center gap-space-lg">
+        <div class="flex items-center gap-space-sm cursor-pointer" data-path="catalogo-requisicao">
+          <div class="w-9 h-9 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary font-headline-sm text-headline-sm font-bold shadow-sm">N</div>
+          <div class="flex flex-col">
+            <span class="font-headline-sm text-headline-sm font-bold text-on-primary leading-tight tracking-tight">Nexora</span>
+            <span class="font-label-xs text-label-xs text-on-primary-container tracking-wider uppercase font-semibold">Insumos &amp; Ativos TI</span>
+          </div>
+        </div>
+        <div class="h-6 w-px bg-on-primary-fixed-variant hidden md:block"></div>
+        <nav class="hidden md:flex items-center gap-space-xs">
+          <a href="#" data-path="catalogo-requisicao" class="bg-primary-container text-on-primary font-bold px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-colors">Catálogo &amp; Requisição</a>
+          <a href="#" data-path="minhas-requisicoes" class="text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-colors">Minhas Requisições</a>
+          <a href="#" data-path="gestao-insumos" id="nav-gestao" class="text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-colors hidden">Gestão de Insumos</a>
+          <a href="#" data-path="extrato-auditoria" id="nav-auditoria" class="text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-colors hidden">Extrato &amp; Auditoria</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-space-md">
+        <div class="hidden lg:flex items-center gap-space-xs px-space-sm py-space-xs bg-primary-container rounded-full">
+          <span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+          <span class="font-label-xs text-label-xs text-on-primary-container">Supabase Conectado</span>
+        </div>
+
+        <div class="flex items-center gap-space-sm pl-space-sm">
+          <div class="hidden xl:flex flex-col text-right">
+            <span id="header-user-name" class="font-label-md text-label-md text-on-primary font-semibold leading-tight">Carregando...</span>
+            <span id="header-user-email" class="font-label-xs text-label-xs text-on-primary-container">email@nexora.com.br</span>
+          </div>
+          <span id="header-user-badge" class="px-space-sm py-space-xs rounded-full font-label-xs text-label-xs text-on-primary font-bold bg-secondary-container">
+            Funcionário
+          </span>
+          <button type="button" onclick="window.AuthModule.logout()" title="Sair do Sistema" class="flex items-center justify-center p-space-xs rounded-lg text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="w-full flex-1 flex flex-col">
+
+    <!-- VIEW 1: LOGIN -->
+    <div id="view-login" class="app-view w-full min-h-screen flex items-center justify-center p-gutter md:p-gutter-desktop relative bg-background">
+      <div class="relative w-full max-w-5xl flex items-center justify-center">
+        <div class="absolute -top-16 -left-12 w-72 h-72 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-20 -right-10 w-80 h-80 rounded-full bg-on-tertiary-container/15 blur-3xl pointer-events-none"></div>
+
+        <div class="w-full max-w-lg relative z-10 flex flex-col items-center">
+          <div class="flex flex-col items-center text-center mb-space-lg">
+            <div class="w-20 h-20 rounded-xl bg-surface-container shadow-sm flex items-center justify-center p-2 mb-space-md">
+              <span class="font-headline-xl text-headline-xl font-bold text-primary">N</span>
+            </div>
+            <span class="font-label-xs text-label-xs uppercase tracking-wider text-secondary px-3 py-1 bg-secondary-fixed rounded-full mb-space-xs">
+              Nexora Tecnologia e Soluções
+            </span>
+            <h1 class="font-headline-lg text-headline-lg text-on-surface">
+              Sistema de Controle de Insumos de TI
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Controle e rastreabilidade de materiais e periféricos
+            </p>
+          </div>
+
+          <div class="w-full bg-surface-container-lowest rounded-xl shadow-md p-space-lg sm:p-space-xl">
+            <!-- Alert de Erro de Login -->
+            <div id="login-error-alert" class="hidden mb-space-md bg-error-container text-on-error-container p-3 rounded-lg flex items-start gap-space-sm" role="alert">
+              <span class="material-symbols-outlined text-error text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">error</span>
+              <div class="flex-1">
+                <p class="font-label-sm text-label-sm" id="login-error-title">Credenciais inválidas.</p>
+                <p class="font-body-sm text-body-sm opacity-90 mt-0.5" id="login-error-desc">Verifique os dados ou contate o suporte de TI.</p>
+              </div>
+              <button type="button" onclick="document.getElementById('login-error-alert').classList.add('hidden')" class="text-on-error-container hover:opacity-75">
+                <span class="material-symbols-outlined text-[18px]">close</span>
+              </button>
+            </div>
+
+            <!-- Quick Switcher Demo Badge -->
+            <div id="quick-role-badge" class="mb-space-md py-1.5 px-3 rounded-lg bg-surface-container text-on-surface flex items-center justify-between">
+              <div class="flex items-center gap-space-xs">
+                <span class="material-symbols-outlined text-primary text-[18px]">badge</span>
+                <span id="selected-role-name" class="font-label-xs text-label-xs text-on-surface">Perfil selecionado: Homologação</span>
+              </div>
+              <span class="font-label-xs text-label-xs text-secondary-container font-semibold uppercase">Ambiente Seguro</span>
+            </div>
+
+            <form id="login-form" class="space-y-space-md" onsubmit="window.AuthModule.login(event)">
+              <div>
+                <label for="login-email" class="font-label-sm text-label-sm text-on-surface mb-1 block">E-mail corporativo</label>
+                <input id="login-email" type="email" required placeholder="nome.sobrenome@nexora.com.br" class="w-full px-space-md py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-body-md"/>
+              </div>
+
+              <div>
+                <label for="login-password" class="font-label-sm text-label-sm text-on-surface mb-1 block">Senha</label>
+                <div class="relative">
+                  <input id="login-password" type="password" required placeholder="••••••••••••" class="w-full px-space-md py-2.5 pr-10 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-body-md"/>
+                  <button type="button" onclick="window.AuthModule.togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface focus:outline-none">
+                    <span id="password-eye-icon" class="material-symbols-outlined text-[20px]">visibility</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="pt-space-xs">
+                <button id="login-submit-btn" type="submit" class="w-full py-3 px-space-md bg-primary text-on-primary font-label-md text-label-md font-bold rounded-lg hover:bg-primary-container shadow-md transition-all flex items-center justify-center gap-space-sm">
+                  <span id="login-btn-spinner" class="material-symbols-outlined text-body-lg animate-spin hidden">progress_activity</span>
+                  <span id="login-btn-text">Entrar no Sistema</span>
+                </button>
+              </div>
+            </form>
+
+            <div class="mt-space-lg pt-space-md border-t border-surface-container-low flex flex-col gap-space-xs">
+              <span class="font-label-xs text-label-xs text-on-surface-variant text-center uppercase tracking-wider">Atalhos de homologação local:</span>
+              <div class="grid grid-cols-2 gap-space-xs">
+                <button type="button" onclick="window.AuthModule.setProfile('employee')" class="px-2 py-1.5 rounded-md bg-surface-container-low hover:bg-surface-container text-on-surface font-label-xs text-label-xs flex items-center justify-center gap-1 border border-outline-variant">
+                  <span class="material-symbols-outlined text-[14px] text-primary">person</span> Colaborador
+                </button>
+                <button type="button" onclick="window.AuthModule.setProfile('manager')" class="px-2 py-1.5 rounded-md bg-surface-container-low hover:bg-surface-container text-on-surface font-label-xs text-label-xs flex items-center justify-center gap-1 border border-outline-variant">
+                  <span class="material-symbols-outlined text-[14px] text-secondary">admin_panel_settings</span> Gestor TI
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: CATÁLOGO & REQUISEIÇÃO -->
+    <div id="view-catalogo" class="app-view w-full pt-16 hidden">
+      <!-- Greeting Header -->
+      <section class="w-full px-margin-desktop py-space-lg bg-surface-bright">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+          <div class="flex flex-col">
+            <div class="flex items-center gap-space-xs text-secondary mb-1">
+              <span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">terminal</span>
+              <span class="font-label-xs text-label-xs uppercase tracking-widest font-bold">Portal Operacional de Materiais TI</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-primary tracking-tight font-bold">
+              Olá, <span id="cat-user-display-name">Usuário</span> <span id="cat-user-dept" class="font-headline-lg text-headline-lg font-normal text-on-surface-variant">(TI)</span>
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Consulte itens disponíveis no Almoxarifado Central TI para retirada ágil ou substituição emergencial.
+            </p>
+          </div>
+
+          <!-- Live KPI Badges -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-space-md">
+            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-space-md">
+              <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-headline-lg">inventory_2</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-label-xs text-label-xs uppercase text-on-surface-variant tracking-wider font-bold">Total de Itens</span>
+                <span id="kpi-total-itens" class="font-headline-lg text-headline-lg text-on-surface font-bold">0</span>
+              </div>
+            </div>
+
+            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-space-md">
+              <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-headline-lg">warning</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-label-xs text-label-xs uppercase text-on-surface-variant tracking-wider font-bold">Estoque Baixo</span>
+                <span id="kpi-baixo-estoque" class="font-headline-lg text-headline-lg text-secondary font-bold">0</span>
+              </div>
+            </div>
+
+            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-space-md col-span-2 sm:col-span-1">
+              <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+                <span class="material-symbols-outlined text-headline-lg">checklist</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-label-xs text-label-xs uppercase text-on-surface-variant tracking-wider font-bold">Minhas Retiradas</span>
+                <span id="kpi-minhas-retiradas" class="font-headline-lg text-headline-lg text-on-surface font-bold">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search & Filters Container -->
+      <section class="w-full px-margin-desktop py-space-md bg-surface-container-low border-y border-outline-variant/30">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+          <div class="flex-1 relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <input id="cat-search-input" type="text" placeholder="Buscar por nome do insumo..." oninput="window.CatalogoModule.filterItens()" class="w-full pl-10 pr-space-md py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"/>
+          </div>
+
+          <div class="flex items-center gap-space-sm">
+            <select id="cat-category-select" onchange="window.CatalogoModule.filterItens()" class="px-space-md py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md focus:outline-none focus:border-primary">
+              <option value="all">Todas as Categorias</option>
+              <option value="papelaria">Papelaria</option>
+              <option value="impressao">Impressão</option>
+              <option value="informatica">Informática &amp; Periféricos</option>
+              <option value="outros">Outros Insumos</option>
+            </select>
+            <button type="button" onclick="window.CatalogoModule.resetFilters()" class="px-space-md py-2.5 bg-surface-container-high hover:bg-surface-container rounded-lg font-label-md text-label-md transition-colors text-on-surface flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">restart_alt</span> Limpar
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Catalog Grid View -->
+      <section class="w-full px-margin-desktop py-space-xl">
+        <div class="max-w-7xl mx-auto">
+          <div id="cat-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+            <!-- Cards gerados dinamicamente por catalogo.js -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="cat-empty-state" class="hidden py-space-xl flex flex-col items-center justify-center text-center">
+            <span class="material-symbols-outlined text-[48px] text-outline mb-space-sm">search_off</span>
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">Nenhum insumo encontrado</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">Tente ajustar a busca ou os filtros aplicados.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 3: MINHAS REQUISEIÇÕES -->
+    <div id="view-minhas-requisicoes" class="app-view w-full pt-16 hidden">
+      <section class="w-full px-margin-desktop py-space-lg bg-surface-bright border-b border-outline-variant/30">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+          <div>
+            <div class="flex items-center gap-space-xs text-primary mb-1">
+              <span class="material-symbols-outlined text-headline-sm">history</span>
+              <span class="font-label-xs text-label-xs uppercase tracking-widest font-bold">Rastreabilidade Pessoal</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-primary font-bold">Minhas Requisições</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">Histórico completo e imutável das suas retiradas de insumos de TI.</p>
+          </div>
+          <div class="flex items-center gap-space-sm bg-surface-container-lowest p-space-sm rounded-xl border border-outline-variant">
+            <span id="my-req-count-badge" class="font-label-md text-label-md text-primary font-bold">0 registros</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filters Row -->
+      <section class="w-full px-margin-desktop py-space-md bg-surface-container-low border-b border-outline-variant/30">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-md">
+          <div class="w-full md:w-80 relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <input id="my-req-search" type="text" placeholder="Filtrar minhas retiradas..." oninput="window.MinhasRequisicoesModule.filterTable()" class="w-full pl-10 pr-space-md py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- Table Container -->
+      <section class="w-full px-margin-desktop py-space-lg">
+        <div class="max-w-7xl mx-auto bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low border-b border-outline-variant text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">
+                  <th class="p-space-md">Data / Hora</th>
+                  <th class="p-space-md">Insumo / Item</th>
+                  <th class="p-space-md">Categoria</th>
+                  <th class="p-space-md text-center">Quantidade</th>
+                  <th class="p-space-md text-center">Tipo</th>
+                  <th class="p-space-md text-right">Status do Registro</th>
+                </tr>
+              </thead>
+              <tbody id="my-req-table-body" class="divide-y divide-outline-variant/30 font-body-md">
+                <!-- Renderizado por minhas-requisicoes.js -->
+              </tbody>
+            </table>
+          </div>
+          <div id="my-req-empty" class="hidden p-space-xl text-center">
+            <span class="material-symbols-outlined text-[40px] text-outline mb-space-xs">assignment_return</span>
+            <p class="font-label-md text-label-md text-on-surface">Nenhuma requisição realizada até o momento.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 4: GESTÃO DE INSUMOS (EXCLUSIVA GESTOR) -->
+    <div id="view-gestao-insumos" class="app-view w-full pt-16 hidden">
+      <section class="w-full px-margin-desktop py-space-lg bg-surface-bright border-b border-outline-variant/30">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+          <div>
+            <div class="flex items-center gap-space-xs text-secondary mb-1">
+              <span class="material-symbols-outlined text-headline-sm">admin_panel_settings</span>
+              <span class="font-label-xs text-label-xs uppercase tracking-widest font-bold">Painel do Gestor de TI</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-primary font-bold">Gestão de Insumos &amp; Inventário</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">Cadastre novos itens, registre reposições de estoque ou realize ajustes após contagem física.</p>
+          </div>
+
+          <div class="flex items-center gap-space-sm flex-wrap">
+            <button type="button" onclick="window.GestaoModule.openModalCriar()" class="px-space-md py-2.5 bg-primary text-on-primary font-label-md text-label-md font-bold rounded-lg hover:bg-primary-container shadow-sm transition-all flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">add_circle</span> Cadastrar Novo Item
+            </button>
+            <button type="button" onclick="window.GestaoModule.openModalRepor()" class="px-space-md py-2.5 bg-secondary text-on-secondary font-label-md text-label-md font-bold rounded-lg hover:opacity-90 shadow-sm transition-all flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">add_box</span> Repor Estoque
+            </button>
+            <button type="button" onclick="window.GestaoModule.openModalAjustar()" class="px-space-md py-2.5 bg-surface-container-high text-on-surface font-label-md text-label-md font-bold rounded-lg hover:bg-surface-container transition-all flex items-center gap-1 border border-outline-variant">
+              <span class="material-symbols-outlined text-[18px]">edit_note</span> Ajustar Inventário
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Table Section for Gestor -->
+      <section class="w-full px-margin-desktop py-space-lg">
+        <div class="max-w-7xl mx-auto bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+          <div class="p-space-md bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+            <span class="font-headline-sm text-headline-sm text-on-surface font-bold">Itens Cadastrados</span>
+            <span id="gestao-item-count" class="font-label-sm text-label-sm text-on-surface-variant">0 itens</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low border-b border-outline-variant text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">
+                  <th class="p-space-md">Insumo</th>
+                  <th class="p-space-md">Categoria</th>
+                  <th class="p-space-md text-center">Unidade</th>
+                  <th class="p-space-md text-center">Saldo Atual</th>
+                  <th class="p-space-md text-center">Estoque Mínimo</th>
+                  <th class="p-space-md text-center">Ações Rápidas</th>
+                </tr>
+              </thead>
+              <tbody id="gestao-table-body" class="divide-y divide-outline-variant/30 font-body-md">
+                <!-- Renderizado por gestao.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 5: EXTRATO & AUDITORIA (EXCLUSIVA GESTOR) -->
+    <div id="view-extrato-auditoria" class="app-view w-full pt-16 hidden">
+      <section class="w-full px-margin-desktop py-space-lg bg-surface-bright border-b border-outline-variant/30">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+          <div>
+            <div class="flex items-center gap-space-xs text-secondary mb-1">
+              <span class="material-symbols-outlined text-headline-sm">policy</span>
+              <span class="font-label-xs text-label-xs uppercase tracking-widest font-bold">Governança &amp; Compliance TI</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-primary font-bold">Extrato Completo &amp; Trilha de Auditoria</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">Registro append-only imutável de todas as movimentações do sistema (US-09 e US-10).</p>
+          </div>
+
+          <div class="flex items-center gap-space-sm">
+            <button type="button" onclick="window.AuditoriaModule.exportCSV()" class="px-space-md py-2.5 bg-primary text-on-primary font-label-md text-label-md font-bold rounded-lg hover:bg-primary-container shadow-sm transition-all flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">download</span> Exportar CSV
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Extrato Filters -->
+      <section class="w-full px-margin-desktop py-space-md bg-surface-container-low border-b border-outline-variant/30">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-md">
+          <div class="flex items-center gap-space-sm flex-1">
+            <select id="audit-filter-type" onchange="window.AuditoriaModule.filterExtrato()" class="px-space-md py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md">
+              <option value="all">Todos os Tipos (Retirada, Reposição, Ajuste)</option>
+              <option value="retirada">Retirada</option>
+              <option value="reposicao">Reposição</option>
+              <option value="ajuste">Ajuste</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Table Section for Extrato -->
+      <section class="w-full px-margin-desktop py-space-lg">
+        <div class="max-w-7xl mx-auto bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low border-b border-outline-variant text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">
+                  <th class="p-space-md">Data / Hora</th>
+                  <th class="p-space-md">Item</th>
+                  <th class="p-space-md">Tipo Movimentação</th>
+                  <th class="p-space-md text-center">Quantidade</th>
+                  <th class="p-space-md">Usuário Responsável</th>
+                  <th class="p-space-md text-right">Ação</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body" class="divide-y divide-outline-variant/30 font-body-md">
+                <!-- Renderizado por auditoria.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- MODAL DE REQUISIÇÃO (RETIRADA DE ITEM) -->
+  <div id="requisition-modal" class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden items-center justify-center p-gutter">
+    <div class="w-full max-w-lg bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden flex flex-col">
+      <div class="p-space-lg bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-primary text-headline-lg">output</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Requisitar Insumo</h3>
+        </div>
+        <button type="button" onclick="window.CatalogoModule.closeModal()" class="text-on-surface-variant hover:text-on-surface">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <form id="requisition-form" onsubmit="window.CatalogoModule.submitRequisition(event)" class="p-space-lg space-y-space-md">
+        <div class="bg-surface-container-low p-space-md rounded-lg">
+          <h4 id="modal-item-nome" class="font-headline-sm text-headline-sm text-primary font-bold">Nome do Item</h4>
+          <div class="flex items-center gap-space-md mt-1 font-body-sm text-body-sm text-on-surface-variant">
+            <span>Categoria: <strong id="modal-item-cat">Papelaria</strong></span>
+            <span>Saldo Atual: <strong id="modal-item-saldo" class="text-primary font-bold">0 un</strong></span>
+          </div>
+        </div>
+
+        <div>
+          <label for="req-qtd" class="font-label-sm text-label-sm text-on-surface mb-1 block">Quantidade a Retirar</label>
+          <div class="flex items-center gap-space-sm">
+            <button type="button" onclick="window.CatalogoModule.adjustQty(-1)" class="w-10 h-10 rounded-lg bg-surface-container-high hover:bg-surface-container font-bold text-headline-sm flex items-center justify-center text-on-surface">-</button>
+            <input id="req-qtd" type="number" min="1" value="1" required oninput="window.CatalogoModule.validateQty()" class="flex-1 py-2 text-center border border-outline-variant rounded-lg font-headline-sm text-headline-sm font-bold text-primary focus:outline-none"/>
+            <button type="button" onclick="window.CatalogoModule.adjustQty(1)" class="w-10 h-10 rounded-lg bg-surface-container-high hover:bg-surface-container font-bold text-headline-sm flex items-center justify-center text-on-surface">+</button>
+          </div>
+        </div>
+
+        <div id="modal-insufficient-alert" class="hidden bg-error-container text-on-error-container p-space-sm rounded-lg flex items-center gap-space-xs font-body-sm text-body-sm">
+          <span class="material-symbols-outlined text-error text-[18px]">error</span>
+          <span>Quantidade informada excede o saldo disponível em estoque!</span>
+        </div>
+
+        <div class="flex items-center justify-end gap-space-sm pt-space-md border-t border-outline-variant/30">
+          <button type="button" onclick="window.CatalogoModule.closeModal()" class="px-space-md py-2.5 rounded-lg text-on-surface hover:bg-surface-container-low font-label-md text-label-md">Cancelar</button>
+          <button id="modal-submit-btn" type="submit" class="px-space-lg py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container shadow-md flex items-center gap-space-xs">
+            <span id="modal-submit-spinner" class="material-symbols-outlined animate-spin hidden">progress_activity</span>
+            <span id="modal-submit-label">Confirmar Retirada</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CADASTRAR ITEM (GESTOR) -->
+  <div id="modal-criar-item" class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden items-center justify-center p-gutter">
+    <div class="w-full max-w-lg bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden flex flex-col">
+      <div class="p-space-lg bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+        <h3 class="font-headline-sm text-headline-sm text-primary font-bold">Cadastrar Novo Insumo</h3>
+        <button type="button" onclick="window.GestaoModule.closeModalCriar()" class="text-on-surface-variant hover:text-on-surface">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form id="form-criar-item" onsubmit="window.GestaoModule.submitCriarItem(event)" class="p-space-lg space-y-space-md">
+        <div>
+          <label class="font-label-sm text-label-sm mb-1 block">Nome do Item *</label>
+          <input id="criar-nome" type="text" required placeholder="Ex: Resma Papel A4 75g" class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary"/>
+        </div>
+        <div class="grid grid-cols-2 gap-space-md">
+          <div>
+            <label class="font-label-sm text-label-sm mb-1 block">Categoria *</label>
+            <select id="criar-categoria" required class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary">
+              <option value="papelaria">Papelaria</option>
+              <option value="impressao">Impressão</option>
+              <option value="informatica">Informática</option>
+              <option value="outros">Outros</option>
+            </select>
+          </div>
+          <div>
+            <label class="font-label-sm text-label-sm mb-1 block">Unidade *</label>
+            <input id="criar-unidade" type="text" required value="un" placeholder="un, caixa, pacote" class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary"/>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-space-md">
+          <div>
+            <label class="font-label-sm text-label-sm mb-1 block">Saldo Inicial</label>
+            <input id="criar-saldo" type="number" min="0" value="0" class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary"/>
+          </div>
+          <div>
+            <label class="font-label-sm text-label-sm mb-1 block">Estoque Mínimo</label>
+            <input id="criar-minimo" type="number" min="0" value="0" class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary"/>
+          </div>
+        </div>
+        <div class="flex items-center justify-end gap-space-sm pt-space-md border-t border-outline-variant/30">
+          <button type="button" onclick="window.GestaoModule.closeModalCriar()" class="px-space-md py-2 rounded-lg text-on-surface">Cancelar</button>
+          <button type="submit" class="px-space-lg py-2 rounded-lg bg-primary text-on-primary font-bold hover:bg-primary-container">Cadastrar Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: REPOR ESTOQUE (GESTOR) -->
+  <div id="modal-repor-item" class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden items-center justify-center p-gutter">
+    <div class="w-full max-w-lg bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden flex flex-col">
+      <div class="p-space-lg bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+        <h3 class="font-headline-sm text-headline-sm text-secondary font-bold">Repor Estoque de Insumo</h3>
+        <button type="button" onclick="window.GestaoModule.closeModalRepor()" class="text-on-surface-variant hover:text-on-surface">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form id="form-repor-item" onsubmit="window.GestaoModule.submitReporItem(event)" class="p-space-lg space-y-space-md">
+        <div>
+          <label class="font-label-sm text-label-sm mb-1 block">Selecione o Item *</label>
+          <select id="repor-item-id" required class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary">
+            <!-- Preenchido via JS -->
+          </select>
+        </div>
+        <div>
+          <label class="font-label-sm text-label-sm mb-1 block">Quantidade a Adicionar *</label>
+          <input id="repor-qtd" type="number" min="1" value="1" required class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary"/>
+        </div>
+        <div class="flex items-center justify-end gap-space-sm pt-space-md border-t border-outline-variant/30">
+          <button type="button" onclick="window.GestaoModule.closeModalRepor()" class="px-space-md py-2 rounded-lg text-on-surface">Cancelar</button>
+          <button type="submit" class="px-space-lg py-2 rounded-lg bg-secondary text-on-secondary font-bold hover:opacity-90">Confirmar Reposição</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: AJUSTAR INVENTÁRIO (GESTOR) -->
+  <div id="modal-ajustar-item" class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden items-center justify-center p-gutter">
+    <div class="w-full max-w-lg bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden flex flex-col">
+      <div class="p-space-lg bg-surface-container-low border-b border-outline-variant flex items-center justify-between">
+        <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Ajuste de Inventário (Contagem Física)</h3>
+        <button type="button" onclick="window.GestaoModule.closeModalAjustar()" class="text-on-surface-variant hover:text-on-surface">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form id="form-ajustar-item" onsubmit="window.GestaoModule.submitAjustarItem(event)" class="p-space-lg space-y-space-md">
+        <div>
+          <label class="font-label-sm text-label-sm mb-1 block">Selecione o Item *</label>
+          <select id="ajustar-item-id" required class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary">
+            <!-- Preenchido via JS -->
+          </select>
+        </div>
+        <div>
+          <label class="font-label-sm text-label-sm mb-1 block">Novo Saldo Real *</label>
+          <input id="ajustar-novo-saldo" type="number" min="0" required class="w-full px-space-md py-2 border border-outline-variant rounded-lg font-body-md focus:outline-none focus:border-primary"/>
+        </div>
+        <div class="flex items-center justify-end gap-space-sm pt-space-md border-t border-outline-variant/30">
+          <button type="button" onclick="window.GestaoModule.closeModalAjustar()" class="px-space-md py-2 rounded-lg text-on-surface">Cancelar</button>
+          <button type="submit" class="px-space-lg py-2 rounded-lg bg-primary text-on-primary font-bold hover:bg-primary-container">Salvar Ajuste</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DRAWER PERICIAL DE AUDITORIA -->
+  <div id="forensic-drawer" class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden flex justify-end">
+    <div class="w-full max-w-md bg-surface-container-lowest h-full shadow-2xl flex flex-col justify-between overflow-y-auto p-space-lg">
+      <div>
+        <div class="flex items-center justify-between pb-space-md border-b border-outline-variant">
+          <h3 class="font-headline-sm text-headline-sm text-primary font-bold">Detalhamento da Transação</h3>
+          <button type="button" onclick="document.getElementById('forensic-drawer').classList.add('hidden')" class="text-on-surface-variant hover:text-on-surface">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div id="drawer-content" class="mt-space-md space-y-space-md font-body-md">
+          <!-- Preenchido dinamicamente por auditoria.js -->
+        </div>
+      </div>
+      <div class="pt-space-md border-t border-outline-variant flex justify-end">
+        <button type="button" onclick="document.getElementById('forensic-drawer').classList.add('hidden')" class="px-space-md py-2 bg-primary text-on-primary rounded-lg font-bold">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER GLOBAL -->
+  <footer id="app-footer" class="w-full bg-surface-container-lowest shadow-[0_-1px_8px_rgba(0,0,0,0.03)] py-space-lg mt-auto hidden">
+    <div class="w-full px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-sm">
+        <span class="font-headline-sm text-headline-sm font-bold text-primary">Nexora</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">Tecnologia e Soluções © 2026 • Gestão Centralizada de Suprimentos TI</span>
+      </div>
+      <div class="flex items-center gap-space-lg font-label-sm text-label-sm text-on-surface-variant">
+        <span class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary-container"></span>Versão 2.4.0 (Enterprise)</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CARREGAMENTO DE SCRIPTS DA APLICAÇÃO -->
+  <script src="js/config.js"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/catalogo.js"></script>
+  <script src="js/minhas-requisicoes.js"></script>
+  <script src="js/gestao.js"></script>
+  <script src="js/auditoria.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

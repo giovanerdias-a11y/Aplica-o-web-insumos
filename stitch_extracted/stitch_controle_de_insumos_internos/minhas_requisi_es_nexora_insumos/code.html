@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#ff6b95","on-secondary-container":"#49008c","primary-container":"#10288c","tertiary-container":"#6e002f","on-surface":"#131b2e","surface-container":"#eaedff","tertiary":"#47001c","secondary":"#7740bc","surface-tint":"#4356b7","error":"#ba1a1a","secondary-fixed":"#eedcff","inverse-primary":"#bac3ff","on-primary-container":"#8496fc","surface-bright":"#faf8ff","background":"#faf8ff","on-primary":"#ffffff","surface-container-high":"#e2e7ff","tertiary-fixed-dim":"#ffb1c2","on-background":"#131b2e","tertiary-fixed":"#ffd9df","secondary-container":"#b780ff","surface-container-low":"#f2f3ff","on-tertiary":"#ffffff","outline":"#757684","inverse-surface":"#283044","on-secondary-fixed":"#290054","surface":"#faf8ff","surface-container-lowest":"#ffffff","inverse-on-surface":"#eef0ff","primary-fixed-dim":"#bac3ff","surface-variant":"#dae2fd","on-error":"#ffffff","on-error-container":"#93000a","error-container":"#ffdad6","surface-dim":"#d2d9f4","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#8f003f","on-primary-fixed":"#00115a","on-surface-variant":"#454652","on-primary-fixed-variant":"#283d9e","primary-fixed":"#dee0ff","on-tertiary-fixed":"#3f0018","primary":"#001464","outline-variant":"#c5c5d4","surface-container-highest":"#dae2fd","on-secondary-fixed-variant":"#5e23a3","secondary-fixed-dim":"#d8b9ff"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-sm":"0.5rem",gutter:"1.25rem","space-lg":"1.5rem","space-md":"1rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","space-xl":"2rem","space-xs":"0.25rem",margin:"1rem"},fontFamily:{"body-lg":["Inter"],"body-sm":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"label-xs":["Inter"],"headline-lg":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"label-md":["Inter"],"body-md":["Inter"],"label-sm":["Inter"],"headline-sm":["Plus Jakarta Sans"]},fontSize:{"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"18px",fontWeight:"400"}],"headline-xl-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-xs":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"700"}],"headline-xl":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}],"label-md":["14px",{lineHeight:"20px",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"label-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-sm":["18px",{lineHeight:"26px",letterSpacing:"-0.01em",fontWeight:"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-[0_1px_8px_rgba(0,0,0,0.12)]"><div class="h-16 w-full px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary font-headline-sm text-headline-sm font-bold shadow-sm">N</div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-bold text-on-primary leading-tight tracking-tight">Nexora</span><span class="font-label-xs text-label-xs text-on-primary-container tracking-wider uppercase font-semibold">Insumos &amp; Ativos TI</span></div></div><div class="h-6 w-px bg-on-primary-fixed-variant hidden md:block"></div><nav class="hidden md:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-bold"><a class="text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-colors" data-path="catalogo-requisicao" href="#">Catálogo &amp; Requisição</a><a class="text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-colors" data-path="minhas-requisicoes" href="#">Minhas Requisições</a><a class="text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-colors" data-path="gestao-insumos" href="#">Gestão de Insumos</a><a class="text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-colors" data-path="extrato-auditoria" href="#">Extrato &amp; Auditoria</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs px-space-sm py-space-xs bg-primary-container rounded-full"><span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span><span class="font-label-xs text-label-xs text-on-primary-container">Supabase Online</span></div><div class="flex items-center bg-primary-container p-space-xs rounded-lg gap-space-xs"><button class="px-space-sm py-space-xs rounded-DEFAULT font-label-xs text-label-xs text-on-primary font-bold bg-secondary-container transition-all" type="button">Gestor TI</button><button class="px-space-sm py-space-xs rounded-DEFAULT font-label-xs text-label-xs text-on-primary-fixed-variant hover:text-on-primary transition-all" type="button">Colaborador</button></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="hidden xl:flex flex-col text-right"><span class="font-label-md text-label-md text-on-primary font-semibold leading-tight">Carlos Silva - TI</span><span class="font-label-xs text-label-xs text-on-primary-container">gestor@nexora.com.br</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-container" src="https://lh3.googleusercontent.com/aida/AEtjO1X3KDvONCQXD0Yd94h7zypXOGRf4qoUAxIrAecHJHVuaJMXjvJ1orSXskZwKhfLdxBxXZfCIHlyyrmcdmlP5TcZr9Wibw161ddbYXr7iOqnFiFptGv5EXKDUn8DvwLv4BMyvC1zWo60ndPCEyjRSWqVscM_CSeGDambbRFk4Fzc9UK4HnLovTdJubUBvQAIQxfMi2ueix8A4pEGLMU2n215MBfUUaeji_5OeY72-NFHF1RZ3NXgKfmN48Z6y76NX1-1Nh4Cvmpt"/><a class="flex items-center justify-center p-space-xs rounded-lg text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-container transition-colors" data-path="login" href="#" title="Sair do Sistema"><span class="material-symbols-outlined text-headline-sm">logout</span></a></div></div></div></header><main class="w-full pt-16 bg-background flex-1"><div class="flex flex-col w-full">
+<!-- Toast Notification Alert (Dismissible Micro-interaction) -->
+<div class="w-full bg-surface-container-high px-margin-desktop py-space-sm flex items-center justify-between shadow-sm transition-all duration-300" id="success-notification">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-headline-sm">check_circle</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center gap-x-space-sm">
+<span class="font-label-md text-label-md text-primary font-bold">Retirada Concluída com Sucesso!</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Protocolo #NX-883492 sincronizado com Supabase Ledger. Comprovante digital emitido.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="p-space-xs text-on-surface-variant hover:text-primary transition-colors" onclick="document.getElementById('success-notification').classList.add('hidden')">
+<span class="material-symbols-outlined text-label-md">close</span>
+</button>
+</div>
+</div>
+<div class="w-full px-margin-desktop py-space-lg flex flex-col gap-space-lg">
+<!-- Header Section with Breadcrumb & Action Toolbar -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">
+<span>Portal Nexora</span>
+<span>/</span>
+<span>Colaborador</span>
+<span>/</span>
+<span class="text-primary font-bold">Extrato Individual</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">Minhas Requisições</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Histórico pessoal de retiradas de materiais para prestação de contas e rastreabilidade digital com conformidade corporativa.
+        </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="px-space-md py-space-sm bg-surface-container-lowest hover:bg-surface-container text-primary font-label-md text-label-md rounded-lg shadow-sm flex items-center gap-space-xs transition-all" id="btn-export-termo" onclick="window.print()">
+<span class="material-symbols-outlined text-headline-sm">print</span>
+<span>Imprimir Termo de Entrega</span>
+</button>
+<button class="px-space-md py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm flex items-center gap-space-xs transition-all" id="btn-export-csv">
+<span class="material-symbols-outlined text-headline-sm">download</span>
+<span>Exportar Comprovante (PDF/CSV)</span>
+</button>
+</div>
+</div>
+<!-- Metric KPI Tiles (Bento Grid Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 w-28 h-28 bg-surface-container rounded-full opacity-60 pointer-events-none group-hover:scale-110 transition-transform"></div>
+<div class="flex items-center justify-between relative z-10">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Volume Histórico</span>
+<span class="p-space-xs bg-surface-container text-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-headline-sm">history_edu</span>
+</span>
+</div>
+<div class="mt-space-md relative z-10 flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-primary font-bold">12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">requisições totalizadas</span>
+</div>
+<div class="mt-space-sm relative z-10 flex items-center gap-space-xs font-label-xs text-label-xs text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+<span>Ciclo fiscal vigente 2024 • Regular</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 w-28 h-28 bg-surface-variant rounded-full opacity-50 pointer-events-none group-hover:scale-110 transition-transform"></div>
+<div class="flex items-center justify-between relative z-10">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Último Material Retirado</span>
+<span class="p-space-xs bg-surface-container text-secondary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-headline-sm">inventory_2</span>
+</span>
+</div>
+<div class="mt-space-md relative z-10">
+<div class="font-headline-lg text-headline-lg text-primary font-bold truncate">Resma Papel A4 75g</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Retirado há 3 dias (14/10 às 09:42)</span>
+</div>
+<div class="mt-space-sm relative z-10 flex items-center gap-space-xs font-label-xs text-label-xs text-primary font-bold">
+<span class="material-symbols-outlined text-label-sm">verified</span>
+<span>Protocolo Supabase: #8a3f9e...</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 w-28 h-28 bg-secondary-fixed rounded-full opacity-40 pointer-events-none group-hover:scale-110 transition-transform"></div>
+<div class="flex items-center justify-between relative z-10">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Custódia &amp; Posse Ativa</span>
+<span class="p-space-xs bg-secondary-fixed text-on-secondary-fixed rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-headline-sm">devices</span>
+</span>
+</div>
+<div class="mt-space-md relative z-10 flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-secondary font-bold">04</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">itens sob termo de responsabilidade</span>
+</div>
+<div class="mt-space-sm relative z-10 flex items-center gap-space-xs font-label-xs text-label-xs text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>1 Periférico • 3 Cabos/Adaptadores</span>
+</div>
+</div>
+</div>
+<!-- Filter Control Bar -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col lg:flex-row items-center justify-between gap-space-md">
+<!-- Search Input -->
+<div class="relative w-full lg:w-96">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-10 pl-10 pr-space-md bg-surface-container-low text-on-surface rounded-lg font-body-md text-body-md focus:bg-surface-container-lowest focus:shadow-sm outline-none transition-all placeholder:text-outline" id="input-search-item" placeholder="Buscar por insumo, categoria ou protocolo..." type="text"/>
+</div>
+<!-- Filter Controls -->
+<div class="flex items-center gap-space-sm w-full lg:w-auto overflow-x-auto pb-space-xs lg:pb-0">
+<div class="flex items-center bg-surface-container-low p-space-xs rounded-lg gap-space-xs">
+<button class="filter-period-btn px-space-md py-space-xs rounded-DEFAULT font-label-sm text-label-sm text-on-primary bg-primary shadow-xs transition-all" data-period="30" type="button">Últimos 30 dias</button>
+<button class="filter-period-btn px-space-md py-space-xs rounded-DEFAULT font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" data-period="60" type="button">60 dias</button>
+<button class="filter-period-btn px-space-md py-space-xs rounded-DEFAULT font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" data-period="ano" type="button">Ano Atual</button>
+<button class="filter-period-btn px-space-md py-space-xs rounded-DEFAULT font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" data-period="todos" type="button">Todos</button>
+</div>
+<div class="h-6 w-px bg-surface-variant hidden sm:block"></div>
+<!-- Category Dropdown filter simulation -->
+<div class="flex items-center gap-space-xs">
+<select class="h-10 px-space-sm bg-surface-container-low text-on-surface rounded-lg font-label-sm text-label-sm outline-none cursor-pointer hover:bg-surface-container transition-colors" id="filter-category">
+<option value="all">Todas as Categorias</option>
+<option value="Periféricos">Periféricos</option>
+<option value="Papelaria / Escritório">Papelaria / Escritório</option>
+<option value="Cabos &amp; Conectividade">Cabos &amp; Conectividade</option>
+<option value="Impressão / Toners">Impressão / Toners</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Extrato de Movimentações</span>
+<span class="px-space-sm py-space-xs bg-surface-container text-primary font-label-xs text-label-xs rounded-full font-bold" id="badge-count">12 registros</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-label-sm text-secondary-container">sync</span>
+<span>Sincronizado em tempo real</span>
+</div>
+</div>
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">
+<th class="py-space-sm px-space-lg">Data &amp; Hora</th>
+<th class="py-space-sm px-space-md">Insumo / Material</th>
+<th class="py-space-sm px-space-md">Categoria</th>
+<th class="py-space-sm px-space-md text-center">Quantidade</th>
+<th class="py-space-sm px-space-md">Protocolo / Hash Supabase</th>
+<th class="py-space-sm px-space-md text-right">Status da Retirada</th>
+<th class="py-space-sm px-space-md text-center">Comprovante</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container" id="table-body">
+<!-- Row 1 -->
+<tr class="table-row-item hover:bg-surface-container-low transition-colors" data-cat="Papelaria / Escritório" data-item="Resma Papel Sulfite A4 75g Chamex">
+<td class="py-space-sm px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">14/10/2024</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">09:42:18</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-headline-sm">article</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Resma Papel Sulfite A4 75g (500fls)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Marca Chamex • Almoxarifado Central B2</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-space-sm py-space-xs rounded-full bg-surface-container text-primary font-label-xs text-label-xs font-semibold">
+                  Papelaria / Escritório
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">1</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant ml-1">pacote</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<div class="flex items-center gap-space-xs font-mono text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md text-outline">key</span>
+<span class="font-semibold text-primary">#NX-883492</span>
+<span class="text-label-xs text-outline opacity-80">(b7a4..c9f)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high text-primary font-label-xs text-label-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                  Retirada Confirmada
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<button class="p-space-xs rounded-lg text-primary hover:bg-surface-container transition-colors" title="Baixar Termo Assinado">
+<span class="material-symbols-outlined text-headline-sm">receipt_long</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="table-row-item hover:bg-surface-container-low transition-colors" data-cat="Cabos &amp; Conectividade" data-item="Cabo HDMI 2.0 4K UltraHD 2 metros">
+<td class="py-space-sm px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">08/10/2024</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">14:15:02</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-headline-sm">cable</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Cabo HDMI 2.0 UltraHD 2.0m</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Trançado em Nylon blindado • Posto Sala 402</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-space-sm py-space-xs rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs font-semibold">
+                  Cabos &amp; Conectividade
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">1</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant ml-1">unidade</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<div class="flex items-center gap-space-xs font-mono text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md text-outline">key</span>
+<span class="font-semibold text-primary">#NX-881029</span>
+<span class="text-label-xs text-outline opacity-80">(d3e8..11a)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high text-primary font-label-xs text-label-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                  Retirada Confirmada
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<button class="p-space-xs rounded-lg text-primary hover:bg-surface-container transition-colors" title="Baixar Termo Assinado">
+<span class="material-symbols-outlined text-headline-sm">receipt_long</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="table-row-item hover:bg-surface-container-low transition-colors" data-cat="Periféricos" data-item="Mouse Sem Fio Ergonômico Logitech M280">
+<td class="py-space-sm px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">29/09/2024</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">11:05:40</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-headline-sm">mouse</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Mouse Sem Fio Logitech M280 Preto</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ativo Permanente Nexora #AT-5591 • TI Lab</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-space-sm py-space-xs rounded-full bg-surface-variant text-on-surface-variant font-label-xs text-label-xs font-semibold">
+                  Periféricos
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">1</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant ml-1">unidade</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<div class="flex items-center gap-space-xs font-mono text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md text-outline">key</span>
+<span class="font-semibold text-primary">#NX-879410</span>
+<span class="text-label-xs text-outline opacity-80">(8f92..04b)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high text-primary font-label-xs text-label-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                  Retirada Confirmada
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<button class="p-space-xs rounded-lg text-primary hover:bg-surface-container transition-colors" title="Baixar Termo Assinado">
+<span class="material-symbols-outlined text-headline-sm">receipt_long</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="table-row-item hover:bg-surface-container-low transition-colors" data-cat="Papelaria / Escritório" data-item="Kit Pilhas Alcalinas AA Elgin c/ 4 unidades">
+<td class="py-space-sm px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">18/09/2024</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">16:30:11</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-headline-sm">battery_charging_full</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Kit Pilhas Alcalinas AA Elgin (Blister c/ 4)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Reposição Teclado/Mouse • TI Estoque 01</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-space-sm py-space-xs rounded-full bg-surface-container text-primary font-label-xs text-label-xs font-semibold">
+                  Papelaria / Escritório
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">2</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant ml-1">blisters</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<div class="flex items-center gap-space-xs font-mono text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md text-outline">key</span>
+<span class="font-semibold text-primary">#NX-874220</span>
+<span class="text-label-xs text-outline opacity-80">(e1c5..99d)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high text-primary font-label-xs text-label-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                  Retirada Confirmada
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<button class="p-space-xs rounded-lg text-primary hover:bg-surface-container transition-colors" title="Baixar Termo Assinado">
+<span class="material-symbols-outlined text-headline-sm">receipt_long</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="table-row-item hover:bg-surface-container-low transition-colors" data-cat="Cabos &amp; Conectividade" data-item="Adaptador USB-C para RJ45 Gigabit Ethernet">
+<td class="py-space-sm px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">05/09/2024</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">10:11:55</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-headline-sm">settings_ethernet</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Adaptador USB-C para Ethernet RJ45 1Gbps</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Uso corporativo Dell Latitude • Estação 12</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-space-sm py-space-xs rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-xs text-label-xs font-semibold">
+                  Cabos &amp; Conectividade
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">1</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant ml-1">unidade</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<div class="flex items-center gap-space-xs font-mono text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md text-outline">key</span>
+<span class="font-semibold text-primary">#NX-869812</span>
+<span class="text-label-xs text-outline opacity-80">(33a1..7ff)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high text-primary font-label-xs text-label-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                  Retirada Confirmada
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<button class="p-space-xs rounded-lg text-primary hover:bg-surface-container transition-colors" title="Baixar Termo Assinado">
+<span class="material-symbols-outlined text-headline-sm">receipt_long</span>
+</button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="table-row-item hover:bg-surface-container-low transition-colors" data-cat="Impressão / Toners" data-item="Toner HP Laserjet W1105A 105A Preto">
+<td class="py-space-sm px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">22/08/2024</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">15:48:30</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-headline-sm">print</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Cartucho Toner HP Laserjet 105A Preto</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Impressora Operacional RH 02 • Suprimentos</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-space-sm py-space-xs rounded-full bg-surface-container text-primary font-label-xs text-label-xs font-semibold">
+                  Impressão / Toners
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">1</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant ml-1">unidade</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<div class="flex items-center gap-space-xs font-mono text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md text-outline">key</span>
+<span class="font-semibold text-primary">#NX-864119</span>
+<span class="text-label-xs text-outline opacity-80">(c021..44a)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-high text-primary font-label-xs text-label-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                  Retirada Confirmada
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<button class="p-space-xs rounded-lg text-primary hover:bg-surface-container transition-colors" title="Baixar Termo Assinado">
+<span class="material-symbols-outlined text-headline-sm">receipt_long</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Empty State Section (Dynamically shown or hidden) -->
+<div class="hidden flex-col items-center justify-center p-space-xl text-center" id="empty-state-view">
+<div class="w-20 h-20 rounded-full bg-surface-container-low flex items-center justify-center text-outline mb-space-md">
+<span class="material-symbols-outlined text-headline-xl">find_in_page</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Nenhuma requisição registrada neste período.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mt-space-xs">
+          Não localizamos nenhuma movimentação vinculada ao seu usuário com os filtros selecionados. Tente ajustar as datas ou o termo de pesquisa.
+        </p>
+<button class="mt-space-md px-space-md py-space-sm bg-primary-container text-on-primary font-label-md text-label-md rounded-lg shadow-sm hover:bg-primary transition-colors flex items-center gap-space-xs" id="btn-reset-filters">
+<span class="material-symbols-outlined text-label-md">refresh</span>
+<span>Redefinir Filtros de Pesquisa</span>
+</button>
+</div>
+<!-- Table Footer / Pagination Metadata -->
+<div class="px-space-lg py-space-md bg-surface-container-lowest flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
+<span>Exibindo 6 de 12 requisições sincronizadas</span>
+<span>•</span>
+<span class="text-primary font-semibold">Página 1 de 2</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-space-xs rounded-lg bg-surface-container-low text-outline opacity-50 cursor-not-allowed font-label-sm text-label-sm flex items-center gap-space-xs" disabled="">
+<span class="material-symbols-outlined text-label-sm">chevron_left</span>
+<span>Anterior</span>
+</button>
+<button class="px-space-sm py-space-xs rounded-lg bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-sm text-label-sm flex items-center gap-space-xs">
+<span>Próxima</span>
+<span class="material-symbols-outlined text-label-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Informational Card / Corporate Compliance Notice -->
+<div class="bg-surface-container-low p-space-lg rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-sm">policy</span>
+</div>
+<div class="flex flex-col">
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Política de Conformidade &amp; Uso de Insumos</h4>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl mt-space-xs">
+            Todos os itens retirados são vinculados à matrícula corporativa e registrados imutavelmente no banco de dados via Supabase. A devolução de itens sob custódia ativa (adaptadores, periféricos) deve ser solicitada à equipe de TI ao término da necessidade de uso.
+          </p>
+</div>
+</div>
+<a class="px-space-md py-space-sm bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm hover:bg-primary-container transition-colors whitespace-nowrap flex items-center gap-space-xs self-stretch md:self-auto justify-center" data-path="catalogo-requisicao" href="#">
+<span class="material-symbols-outlined text-headline-sm">add</span>
+<span>Nova Requisição</span>
+</a>
+</div>
+</div>
+<!-- Inline Micro-interactions Script -->
+<script>
+    (function() {
+      const searchInput = document.getElementById('input-search-item');
+      const categorySelect = document.getElementById('filter-category');
+      const tableRows = document.querySelectorAll('.table-row-item');
+      const emptyState = document.getElementById('empty-state-view');
+      const badgeCount = document.getElementById('badge-count');
+      const resetBtn = document.getElementById('btn-reset-filters');
+      const periodButtons = document.querySelectorAll('.filter-period-btn');
+
+      function filterTable() {
+        const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+        const selectedCat = categorySelect ? categorySelect.value : 'all';
+        let visibleCount = 0;
+
+        tableRows.forEach(row => {
+          const itemText = (row.getAttribute('data-item') || '').toLowerCase();
+          const catText = row.getAttribute('data-cat') || '';
+
+          const matchesQuery = !query || itemText.includes(query) || row.textContent.toLowerCase().includes(query);
+          const matchesCat = (selectedCat === 'all') || (catText === selectedCat);
+
+          if (matchesQuery && matchesCat) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        if (visibleCount === 0) {
+          if (emptyState) emptyState.classList.remove('hidden');
+        } else {
+          if (emptyState) emptyState.classList.add('hidden');
+        }
+
+        if (badgeCount) {
+          badgeCount.textContent = visibleCount + (visibleCount === 1 ? ' registro' : ' registros');
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', filterTable);
+      }
+
+      if (categorySelect) {
+        categorySelect.addEventListener('change', filterTable);
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+          if (searchInput) searchInput.value = '';
+          if (categorySelect) categorySelect.value = 'all';
+          periodButtons.forEach((btn, idx) => {
+            if (idx === 0) {
+              btn.className = 'filter-period-btn px-space-md py-space-xs rounded-DEFAULT font-label-sm text-label-sm text-on-primary bg-primary shadow-xs transition-all';
+            } else {
+              btn.className = 'filter-period-btn px-space-md py-space-xs rounded-DEFAULT font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all';
+            }
+          });
+          filterTable();
+        });
+      }
+
+      periodButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          periodButtons.forEach(b => {
+            b.className = 'filter-period-btn px-space-md py-space-xs rounded-DEFAULT font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all';
+          });
+          this.className = 'filter-period-btn px-space-md py-space-xs rounded-DEFAULT font-label-sm text-label-sm text-on-primary bg-primary shadow-xs transition-all';
+
+          // Simulation: If 'ano' or 'todos' show all, if others, still display populated dataset
+          filterTable();
+        });
+      });
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest shadow-[0_-1px_8px_rgba(0,0,0,0.03)] py-space-lg mt-auto"><div class="w-full px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm"><span class="font-headline-sm text-headline-sm font-bold text-primary">Nexora</span><span class="font-body-sm text-body-sm text-on-surface-variant">Tecnologia e Soluções © 2024 • Gestão Centralizada de Suprimentos &amp; Hardware TI</span></div><div class="flex items-center gap-space-lg font-label-sm text-label-sm text-on-surface-variant"><span class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary-container"></span>Versão 2.4.0 (Enterprise)</span><span class="hover:text-primary cursor-pointer transition-colors">Políticas de Uso de TI</span><span class="hover:text-primary cursor-pointer transition-colors">Central de Suporte Interno</span></div></div></footer></body></html>
